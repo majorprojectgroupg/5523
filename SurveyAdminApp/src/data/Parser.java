@@ -8,7 +8,8 @@ import org.json.JSONTokener;
 /*
  * Questionnaire format:
  * {
- *   "name": string
+ *   "lastname": string
+ *   "firstname": string
  *   "birthdate": string
  *   "questions" : JSONArray 
  * }
@@ -31,8 +32,12 @@ public class Parser {
 		data = (JSONObject) new JSONTokener(datafeed).nextValue();
 	}
 		
-	public String getPatientName() throws JSONException {
-		return data.getString("name");
+	public String getPatientFirstname() throws JSONException {
+		return data.getString("firstname");
+	}
+	
+	public String getPatientLastname() throws JSONException {
+		return data.getString("lastname");
 	}
 	
 	public String getPatientBirthdate() throws JSONException {
@@ -63,8 +68,9 @@ public class Parser {
 			// declare a local variable, assign it using the corresponding question's widget from
 			// the questionnaire; still needs to be implemented
 			
-			// push the local variable on to the corresponding question's answer
-			((JSONObject) questions.get(i)).put("qAnswer", VALUE);
+			// add the answer to the corresponding question (VALUE is a placeholder, update this when
+			// the UI has been built
+			((JSONObject) questions.get(i)).put("answer", VALUE);
 		}
 		
 	}
