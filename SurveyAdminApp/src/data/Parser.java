@@ -1,5 +1,10 @@
 package data;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,24 +26,39 @@ public abstract class Parser {
 	
 	public Parser() {
 		data = new JSONObject();
+		questions = new JSONArray();
 	}
 	
-	public Parser(String datafeed) {
+	public Parser(File datafile) {
+		setData(datafile);		
+	}
+	
+	// reads a textfile line by line, appends each line to a String, then populates the "data" and
+	// "questions" objects
+	public void setData(File datafile) {				
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(datafile));
+			String line = null;
+			String datafeed = new String();
+			
+			while ((line = reader.readLine()) != null) {
+				datafeed += line;
+			}
+			
+			reader.close();
+			
+			try {
+				data = (JSONObject) new JSONTokener(datafeed).nextValue();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}			
+		} catch (IOException x) {
+			System.err.format("IOException: %s%n", x);
+		}				
 		
 		try {
-			data = (JSONObject) new JSONTokener(datafeed).nextValue();
+			questions = data.getJSONArray("questions");
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	// parses the questionnaire into a usable format
-	public void setData(String datafeed) {
-		try {
-			data = (JSONObject) new JSONTokener(datafeed).nextValue();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
