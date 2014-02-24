@@ -20,14 +20,16 @@ public class AndroidParser extends Parser {
 			
 			for (int i = 0; i < questions.length(); i++) {
 				
+				String qtype = questions.getJSONObject(i).getString("type");
+				
 				// still requires code to extract the data from each JSONObject and send wherever
-				if (((JSONObject) questions.get(i)).get("type").equals("text")) {}
-				else if (((JSONObject) questions.get(i)).get("type").equals("number")) {}
-				else if (((JSONObject) questions.get(i)).get("type").equals("multiple")) {}
-				else if (((JSONObject) questions.get(i)).get("type").equals("date")) {} 
+				if (qtype.equals("text")) {}
+				else if (qtype.equals("number")) {}
+				else if (qtype.equals("multiple")) {}
+				else if (qtype.equals("date")) {} 
 				
 				// this line is just for debugging; delete it later
-				System.out.println(((JSONObject) questions.get(i)).get("prompt"));
+				System.out.println(questions.getJSONObject(i).get("prompt"));
 			}
 			
 		} catch (JSONException e) {
