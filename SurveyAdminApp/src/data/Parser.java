@@ -45,7 +45,7 @@ public abstract class Parser {
 				datafeed += line;
 			}
 			
-			reader.close();
+			reader.close();		 
 			
 			try {
 				data = (JSONObject) new JSONTokener(datafeed).nextValue();
@@ -100,5 +100,12 @@ public abstract class Parser {
 	// for sending the question data in the form of a String
 	public String getData() {
 		return data.toString(); 
+	}
+	
+	// clears questionnaire and answers from app (find a way to make this more explicit)
+	public void deleteAllData() {
+		data = null;
+		questions = null;
+		System.gc();
 	}
 }
