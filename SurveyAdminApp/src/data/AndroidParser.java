@@ -1,10 +1,16 @@
 package data;
 
+import java.io.File;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AndroidParser extends Parser {
 
+	
+	public AndroidParser(File datafile) {
+		super(datafile);
+	}
 	
 	// iterates over the JSONArray of questions and extracts the question information (INCOMPLETE)
 	public void getQuestions() {
@@ -15,10 +21,13 @@ public class AndroidParser extends Parser {
 			for (int i = 0; i < questions.length(); i++) {
 				
 				// still requires code to extract the data from each JSONObject and send wherever
-				if (((JSONObject) questions.get(i)).get("qType").equals("text")) {}
-				else if (((JSONObject) questions.get(i)).get("qType").equals("number")) {}
-				else if (((JSONObject) questions.get(i)).get("qType").equals("multiple")) {}
-				else if (((JSONObject) questions.get(i)).get("qType").equals("date")) {} 
+				if (((JSONObject) questions.get(i)).get("type").equals("text")) {}
+				else if (((JSONObject) questions.get(i)).get("type").equals("number")) {}
+				else if (((JSONObject) questions.get(i)).get("type").equals("multiple")) {}
+				else if (((JSONObject) questions.get(i)).get("type").equals("date")) {} 
+				
+				// this line is just for debugging; delete it later
+				System.out.println(((JSONObject) questions.get(i)).get("prompt"));
 			}
 			
 		} catch (JSONException e) {
